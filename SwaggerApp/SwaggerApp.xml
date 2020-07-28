@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SwaggerApp</name>
+    </assembly>
+    <members>
+        <member name="T:SwaggerApp.SwaggerConfig.AssignOAuth2SecurityRequirements">
+            <summary>
+            Filtro para authenticacion de token
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.SwaggerConfig.AuthorizationHeaderParameterOperationFilter">
+            <summary>
+            Filtro para agregar textbox para token
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.SwaggerConfig.OptionalParameterOperationFilter">
+            <summary>
+            Define parametros obligatorios u opcionales
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.SwaggerConfig.OptionalParameterOperationFilter.Apply(Swagger.Net.Operation,Swagger.Net.SchemaRegistry,System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Sets appropriate Required status of parameters
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.SwaggerConfig.ComplexTypeOperationFilter">
+            <summary>
+            Define atributos complejos
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.SwaggerAccessMessageHandler2">
+            <summary>
+            Autorizacion para acceso a API
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.Controllers.TestController">
+            <summary>
+            Metodos de Prueba
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.Controllers.TestController.Get(System.Int32,System.String)">
+            <summary>
+            Consulta un solo dato mas parametros
+            </summary>
+            <response code="200" cref="T:SwaggerApp.GetResponse">Operacion exitosa.</response>
+            <param name="id">Numero de documento</param>
+            <param name="sort">1 = Ordenar por nombre (opcional)</param>
+        </member>
+        <member name="M:SwaggerApp.Controllers.TestController.Post(SwaggerApp.PostData)">
+            <summary>
+            Alta de Documento.
+            </summary>
+            <response code="201" cref="T:SwaggerApp.PostResponse">Alta de numero exitosa.</response>
+            <response code="303" cref="T:SwaggerApp.PostResponse">Numero ya se encontraba en el sistema (identificador en Location header, swagger redirecciona automaticamente.).</response>
+            <param name="value">Datos del certificado.</param>
+        </member>
+        <member name="M:SwaggerApp.Controllers.TestController.Put(System.Int32,SwaggerApp.PutData)">
+            <summary>
+            Modificacion de Documento.
+            </summary>
+            <response code="200" cref="T:SwaggerApp.PostResponse">Modificacion de numero exitosa.</response>
+            <param name="id">Numero a modificar</param>
+            <param name="value">Datos del certificado.</param>
+        </member>
+        <member name="M:SwaggerApp.Controllers.TestController.Delete(System.Int32)">
+            <summary>
+            Elimina Documento.
+            </summary>
+            <response code="200">Operacion exitosa.</response>
+            <param name="id">Numero de documento</param>
+        </member>
+        <member name="M:SwaggerApp.Controllers.TestController.Patch(System.Int32,SwaggerApp.PutData)">
+            <summary>
+            Actualizacion de Documento.
+            </summary>
+            <response code="200" cref="T:SwaggerApp.PostResponse">Modificacion de numero exitosa.</response>
+            <param name="id">Numero a modificar</param>
+            <param name="value">Datos del certificado.</param>
+        </member>
+        <member name="T:SwaggerApp.GetResponse">
+            <summary>
+            Respuesta de GET
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.GetResponse.Nombre">
+            <summary>
+            nombre
+            </summary>
+            <example>
+            Juan
+            </example>
+        </member>
+        <member name="P:SwaggerApp.GetResponse.Mensaje">
+            <summary>
+            Mensaje
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.PostResponse">
+            <summary>
+            Respuesta de POST
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.PostResponse.Numero">
+            <summary>
+            Numero
+            </summary>
+            <example>
+            351
+            </example>
+        </member>
+        <member name="P:SwaggerApp.PostResponse.Nombre">
+            <summary>
+            Nombre
+            </summary>
+            <example>
+            Jose
+            </example>
+        </member>
+        <member name="P:SwaggerApp.PostResponse.Mensaje">
+            <summary>
+            Mensaje
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.PostData">
+            <summary>
+            Datos para Alta
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.PostData.Numero">
+            <summary>
+            Numero
+            </summary>
+            <example>
+            351
+            </example>
+        </member>
+        <member name="P:SwaggerApp.PostData.Nombre">
+            <summary>
+            Nombre
+            </summary>
+            <example>
+            Juan
+            </example>
+        </member>
+        <member name="T:SwaggerApp.PutData">
+            <summary>
+            Datos para Modificacion
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.PutData.Nombre">
+            <summary>
+            Nombre
+            </summary>
+            <example>
+            Pedro
+            </example>
+        </member>
+        <member name="T:SwaggerApp.VarsSubsFunc">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.VarsSubsFunc.ReadNullAsEmptyString(System.Data.IDataReader,System.String)">
+            <summary>
+            Reads fieldName from Data Reader. If fieldName is DbNull, returns String.Empty.
+            </summary>
+            <returns>Safely returns a string. No need to check for DbNull.</returns>
+        </member>
+        <member name="M:SwaggerApp.VarsSubsFunc.ReadString(System.Data.IDataReader,System.Int32)">
+            <summary>
+            Reads fieldOrdinal from Data Reader. If fieldOrdinal is DbNull, returns String.Empty.
+            </summary>
+            <returns>Safely returns a string. No need to check for DbNull.</returns>
+        </member>
+        <member name="T:SwaggerApp.SwaggerApp.Security.AuthRequest">
+            <summary>
+            Solicitud de token
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.SwaggerApp.Security.AuthRequest.username">
+            <summary>
+            usuario
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.SwaggerApp.Security.AuthRequest.password">
+            <summary>
+            contraseña
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.SwaggerApp.Security.AuthRequest.grant_type">
+            <summary>
+            token nuevo = "password" // refresh token = "refresh_token"
+            </summary>
+        </member>
+        <member name="P:SwaggerApp.SwaggerApp.Security.AuthRequest.refresh_token">
+            <summary>
+            refresh token
+            </summary>
+        </member>
+        <member name="T:SwaggerApp.SwaggerApp.Security.TokenController">
+            <summary>
+            Tokens.
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.SwaggerApp.Security.TokenController.Token(SwaggerApp.SwaggerApp.Security.AuthRequest)">
+            <summary>
+            Solicitud de token.
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.SwaggerApp.Security.TokenController.TknData(SwaggerApp.SwaggerApp.Security.Validate_Token_Post)">
+            <summary>
+            Ver informacion del token.
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.SwaggerApp.Security.TokenController.validateToken(SwaggerApp.SwaggerApp.Security.Validate_Token_Post)">
+            <summary>
+            Validar token
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.SwaggerApp.Security.TokenController.validateRefreshToken(SwaggerApp.SwaggerApp.Security.Validate_Refresh_Token_Post)">
+            <summary>
+            Validar refresh_token
+            </summary>
+        </member>
+    </members>
+</doc>
