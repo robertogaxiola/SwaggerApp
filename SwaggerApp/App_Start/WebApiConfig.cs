@@ -1,4 +1,6 @@
-﻿using Microsoft.Owin.Security.OAuth;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+using Microsoft.Owin.Security.OAuth;
 using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;

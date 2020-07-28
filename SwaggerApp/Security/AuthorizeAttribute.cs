@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+using System.Linq;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
@@ -22,11 +24,11 @@ namespace SwaggerApp
                 var headers = re.Headers;
                 string meth = re.Method.ToString();
                 if (headers.Contains("Authorization"))
-                    tk = headers.GetValues("Authorization").FirstOrDefault().ToString();
+                    tk = headers.GetValues("Authorization").FirstOrDefault();
                 if (tk.StartsWith("Bearer "))
                     tk = tk.Replace("Bearer ", "");
                 string stUri = actionContext.Request.RequestUri.AbsolutePath;
-                VarsSubsFunc.AddCardexTokens(stUri, meth, (int)System.Net.HttpStatusCode.Unauthorized, System.Net.HttpStatusCode.Unauthorized.ToString(), VarsSubsFunc.GetIpAddress().Trim(), tk);
+                VarsSubsFunc.AddCardexTokens(stUri, meth, (int)System.Net.HttpStatusCode.Unauthorized, nameof(System.Net.HttpStatusCode.Unauthorized), VarsSubsFunc.GetIpAddress().Trim(), tk);
                 var resp = new { Message = "Authorization has been denied for this request." };
                 string yourJson = JsonConvert.SerializeObject(resp);
                 actionContext.Response = new System.Net.Http.HttpResponseMessage()
@@ -42,11 +44,11 @@ namespace SwaggerApp
                 var headers = re.Headers;
                 string meth = re.Method.ToString();
                 if (headers.Contains("Authorization"))
-                    tk = headers.GetValues("Authorization").FirstOrDefault().ToString();
+                    tk = headers.GetValues("Authorization").FirstOrDefault();
                 if (tk.StartsWith("Bearer "))
                     tk = tk.Replace("Bearer ", "");
                 string stUri = actionContext.Request.RequestUri.AbsolutePath;
-                VarsSubsFunc.AddCardexTokens(stUri, meth, (int)System.Net.HttpStatusCode.Forbidden, System.Net.HttpStatusCode.Forbidden.ToString(), VarsSubsFunc.GetIpAddress().Trim(), tk);
+                VarsSubsFunc.AddCardexTokens(stUri, meth, (int)System.Net.HttpStatusCode.Forbidden, nameof(System.Net.HttpStatusCode.Forbidden), VarsSubsFunc.GetIpAddress().Trim(), tk);
                 actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
             }
         }
@@ -64,11 +66,11 @@ namespace SwaggerApp
                 var headers = re.Headers;
                 string meth = re.Method.ToString();
                 if (headers.Contains("Authorization"))
-                    tk = headers.GetValues("Authorization").FirstOrDefault().ToString();
+                    tk = headers.GetValues("Authorization").FirstOrDefault();
                 if (tk.StartsWith("Bearer "))
                     tk = tk.Replace("Bearer ", "");
                 string stUri = actionContext.Request.RequestUri.AbsolutePath;
-                VarsSubsFunc.AddCardexTokens(stUri, meth, (int)System.Net.HttpStatusCode.Accepted, System.Net.HttpStatusCode.Accepted.ToString(), VarsSubsFunc.GetIpAddress().Trim(), tk);
+                VarsSubsFunc.AddCardexTokens(stUri, meth, (int)System.Net.HttpStatusCode.Accepted, nameof(System.Net.HttpStatusCode.Accepted), VarsSubsFunc.GetIpAddress().Trim(), tk);
             }
         }
 

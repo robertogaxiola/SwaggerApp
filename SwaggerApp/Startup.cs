@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +14,7 @@ using Owin;
 namespace SwaggerApp
 {
     public class Startup
+
     {
         public void Configuration(IAppBuilder app)
         {
@@ -33,7 +36,6 @@ namespace SwaggerApp
                     LifetimeValidator = LifetimeValidator
                 }
             });
-
         }
 
         public bool LifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters)

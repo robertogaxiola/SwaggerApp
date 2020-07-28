@@ -5,7 +5,6 @@ using System.Data;
 
 namespace SwaggerApp
 {
-
     /// <summary>
     /// Respuesta de GET
     /// </summary>
@@ -82,6 +81,4 @@ namespace SwaggerApp
         /// </example>
         public string Nombre { get; set; }
     }
-
-
 }

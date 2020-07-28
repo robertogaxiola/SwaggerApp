@@ -1,3 +1,4 @@
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,7 +32,6 @@ namespace SwaggerApp
         /// </summary>
         public static void Register()
         {
-
             //Crea Base de datos
             if (!VarsSubsFunc.Create_db())
                 throw new Exception("An exception has occurred. REST_API.db Error!!");
@@ -40,7 +40,6 @@ namespace SwaggerApp
                 throw new Exception("An exception has occurred. JWT_Parameters.json Error!!");
 
             var thisAssembly = typeof(SwaggerConfig).Assembly;
-
 
             //carga validacion de swagger
 
@@ -345,8 +344,6 @@ namespace SwaggerApp
                     });
         }
 
-
-
         /// <summary>
         /// Filtro para authenticacion de token
         /// </summary>
@@ -397,7 +394,6 @@ namespace SwaggerApp
         /// </summary>
         public class OptionalParameterOperationFilter : IOperationFilter
         {
-
             /// <summary>
             /// Sets appropriate Required status of parameters
             /// </summary>
@@ -464,11 +460,9 @@ namespace SwaggerApp
             }
         }
 
-
-
-        /// <summary>
-        /// Metodos Originales
-        /// </summary>
+        ///// <summary>
+        ///// Metodos Originales
+        ///// </summary>
         //public static bool ResolveVersionSupportByRouteConstraint(ApiDescription apiDesc, string targetApiVersion)
         //{
         //    return (apiDesc.Route.RouteTemplate.ToLower().Contains(targetApiVersion.ToLower()));
@@ -547,8 +541,7 @@ namespace SwaggerApp
             // If IsSwagger(request) AndAlso Not request.IsLocal() Then
             if (IsSwagger(request))
             {
-                IEnumerable<string> authHeaderValues = null;
-                request.Headers.TryGetValues("Authorization", out authHeaderValues);
+                request.Headers.TryGetValues("Authorization", out IEnumerable<string> authHeaderValues);
                 string authHeader = authHeaderValues?.FirstOrDefault();
                 if (authHeader is object && authHeader.StartsWith("Basic "))
                 {
@@ -559,12 +552,12 @@ namespace SwaggerApp
                     userN = username;
                     if (IsAuthorized(username, password))
                     {
-                        VarsSubsFunc.AddSwaggerCardex(request.RequestUri.PathAndQuery.ToString(), (int)HttpStatusCode.Accepted, HttpStatusCode.Accepted.ToString(), VarsSubsFunc.GetIpAddress().Trim(), userN);
+                        VarsSubsFunc.AddSwaggerCardex(request.RequestUri.PathAndQuery, (int)HttpStatusCode.Accepted, nameof(HttpStatusCode.Accepted), VarsSubsFunc.GetIpAddress().Trim(), userN);
                         return await base.SendAsync(request, cancellationToken);
                     }
                 }
 
-                VarsSubsFunc.AddSwaggerCardex(request.RequestUri.PathAndQuery.ToString(), (int)HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized.ToString(), VarsSubsFunc.GetIpAddress().Trim(), userN);
+                VarsSubsFunc.AddSwaggerCardex(request.RequestUri.PathAndQuery, (int)HttpStatusCode.Unauthorized, nameof(HttpStatusCode.Unauthorized), VarsSubsFunc.GetIpAddress().Trim(), userN);
                 var response = request.CreateResponse(HttpStatusCode.Unauthorized);
                 response.Headers.Add("WWW-Authenticate", "Basic");
                 return response;
@@ -585,7 +578,7 @@ namespace SwaggerApp
             if (!string.IsNullOrEmpty(username))
                 username = username.ToLower();
             var lastaccess = DateTime.UtcNow;
-            string strSQLQuery = @"
+            const string strSQLQuery = @"
 SELECT id, username, password, status
 FROM swagger
 WHERE lower(username) = @username;
@@ -629,14 +622,14 @@ UPDATE swagger SET lastaccess = @lastaccess, lastipaddr = @ipaddr WHERE lower(us
                     return false;
                 }
 
-                if (SimpleHash.VerifyHash(password, "SHA256", uPass) == false)
+                if (!SimpleHash.VerifyHash(password, "SHA256", uPass))
                 {
                     return false;
                 }
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -647,7 +640,6 @@ UPDATE swagger SET lastaccess = @lastaccess, lastipaddr = @ipaddr WHERE lower(us
 
         private bool IsSwagger(HttpRequestMessage request)
         {
-
             // Return request.RequestUri.PathAndQuery.StartsWith("/swagger")
 
             // Dim str As String
@@ -657,8 +649,7 @@ UPDATE swagger SET lastaccess = @lastaccess, lastipaddr = @ipaddr WHERE lower(us
 
             // str2 = str.Split(New String() {"/swagger"}, StringSplitOptions.None)
 
-            return request.RequestUri.PathAndQuery.ToString().ToLower().Contains("/swagger");
+            return request.RequestUri.PathAndQuery.IndexOf("/swagger", StringComparison.CurrentCultureIgnoreCase) >= 0;
         }
     }
-
 }

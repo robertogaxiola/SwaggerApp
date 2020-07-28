@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
@@ -62,7 +63,7 @@ namespace SwaggerApp.SwaggerApp.Security
                     return base.ResponseMessage(ErrorResponse("invalid_request", "Incorrect parameters.", HttpStatusCode.BadRequest));
                 refresh_token_g = Guid.NewGuid().ToString().Replace("-", "");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return base.ResponseMessage(ErrorResponse("invalid_request", "Incorrect parameters.", HttpStatusCode.BadRequest));
             }
@@ -108,8 +109,7 @@ namespace SwaggerApp.SwaggerApp.Security
                 if (!UpdateRefreshToken(intUserId, refresh_token_g))
                     return base.ResponseMessage(ErrorResponse("internal_error", "Error updating refresh_token.", HttpStatusCode.InternalServerError));
                 string yourJsonG = CreateJWTToken(strUser, strRole, strEmail, refresh_token_g, intUserId);
-                HttpResponseMessage responseG;
-                responseG = Request.CreateResponse(HttpStatusCode.OK);
+                HttpResponseMessage responseG = Request.CreateResponse(HttpStatusCode.OK);
                 responseG.Headers.Location = new Uri(Request.RequestUri.ToString() + "/");
                 responseG.Content = new StringContent(yourJsonG, Encoding.UTF8, "application/json");
                 return base.ResponseMessage(responseG);
@@ -177,8 +177,7 @@ namespace SwaggerApp.SwaggerApp.Security
                 if (!UpdateRefreshToken(intUserId, refresh_token_g))
                     return base.ResponseMessage(ErrorResponse("internal_error", "Error updating refresh_token.", HttpStatusCode.InternalServerError));
                 string yourJsonG = CreateJWTToken(strUser, strRole, strEmail, refresh_token_g, intUserId);
-                HttpResponseMessage responseG;
-                responseG = Request.CreateResponse(HttpStatusCode.OK);
+                HttpResponseMessage responseG = Request.CreateResponse(HttpStatusCode.OK);
                 responseG.Content = new StringContent(yourJsonG, Encoding.UTF8, "application/json");
                 responseG.Headers.Location = new Uri(Request.RequestUri.ToString() + "/");
                 return base.ResponseMessage(responseG);
@@ -267,7 +266,7 @@ namespace SwaggerApp.SwaggerApp.Security
 
             // 'End If
 
-            string stringJ = JsonConvert.SerializeObject(VarsSubsFunc.ExtractTokenData(token.token)).ToString();
+            string stringJ = JsonConvert.SerializeObject(VarsSubsFunc.ExtractTokenData(token.token));
             response = Request.CreateResponse(HttpStatusCode.OK);
             response.Headers.Location = new Uri(Request.RequestUri.ToString() + "/");
             response.Content = new StringContent(stringJ, Encoding.UTF8, "application/json");
@@ -308,7 +307,7 @@ namespace SwaggerApp.SwaggerApp.Security
                 vtr.isValid = Conversions.ToString(false);
             }
 
-            string stringR = JsonConvert.SerializeObject(vtr).ToString();
+            string stringR = JsonConvert.SerializeObject(vtr);
             response = Request.CreateResponse(HttpStatusCode.OK);
             response.Headers.Location = new Uri(Request.RequestUri.ToString() + "/");
             response.Content = new StringContent(stringR, Encoding.UTF8, "application/json");
@@ -340,7 +339,6 @@ namespace SwaggerApp.SwaggerApp.Security
                 }
                 else
                 {
-
                     // Public Property Status() As Boolean
                     // Public Property Msg() As String
                     // Public Property RefreshToken() As String
@@ -361,14 +359,14 @@ namespace SwaggerApp.SwaggerApp.Security
                     // .date = refresh_tknD.Date.ToString("r")
                     // }
 
-                    string stringR = JsonConvert.SerializeObject(reJSON).ToString();
+                    string stringR = JsonConvert.SerializeObject(reJSON);
                     response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Headers.Location = new Uri(Request.RequestUri.ToString() + "/");
                     response.Content = new StringContent(stringR, Encoding.UTF8, "application/json");
                     return base.ResponseMessage(response);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return base.ResponseMessage(ErrorResponse("invalid_request", "Incorrect parameters.", HttpStatusCode.BadRequest));
             }
@@ -410,7 +408,6 @@ namespace SwaggerApp.SwaggerApp.Security
             string BolR;
             try
             {
-                string strSQLQuery; // = "UPDATE tokens SET refresh_token = @refresh_token, status = @status WHERE userid = @userid"
 
                 // strSQLQuery = "REPLACE INTO tokens (userid, refresh_token, status) VALUES (@userid, @refresh_token, @status);"
 
@@ -426,9 +423,10 @@ namespace SwaggerApp.SwaggerApp.Security
 
                 // UPDATE tokens SET refresh_token = @refresh_token WHERE userid = @userid;"
 
-                strSQLQuery = @"
+                string strSQLQuery = @"
 UPDATE tokens SET status = 0 WHERE userid = @userid;
-INSERT INTO tokens (userid, refresh_token, status, ipaddr) VALUES (@userid, @refresh_token, @status, @ipaddr);";
+INSERT INTO tokens (userid, refresh_token, status, ipaddr) VALUES (@userid, @refresh_token, @status, @ipaddr);"; // = "UPDATE tokens SET refresh_token = @refresh_token, status = @status WHERE userid = @userid"
+
                 using (var connection = new System.Data.SQLite.SQLiteConnection(VarsSubsFunc.mStrSQLiteConnString))
                 {
                     using (var command = new System.Data.SQLite.SQLiteCommand(strSQLQuery, connection))
@@ -450,7 +448,7 @@ INSERT INTO tokens (userid, refresh_token, status, ipaddr) VALUES (@userid, @ref
 
                 BolR = Conversions.ToString(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 BolR = Conversions.ToString(false);
             }
@@ -463,8 +461,7 @@ INSERT INTO tokens (userid, refresh_token, status, ipaddr) VALUES (@userid, @ref
             var tknData = new Refresh_Token_Data();
             try
             {
-                string strSQLQuery;
-                strSQLQuery = "SELECT * from tokens WHERE (refresh_token = @refresh_token);";
+                string strSQLQuery = "SELECT * from tokens WHERE (refresh_token = @refresh_token);";
                 using (var connection = new System.Data.SQLite.SQLiteConnection(VarsSubsFunc.mStrSQLiteConnString))
                 {
                     using (var command = new System.Data.SQLite.SQLiteCommand(strSQLQuery, connection))

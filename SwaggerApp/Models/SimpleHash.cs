@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,7 +7,6 @@ namespace SwaggerApp
 {
     public class SimpleHash
     {
-
         // <summary>
         // Generates a hash for the given plain text value and returns a
         // base64-encoded result. Before the hash is computed, a random salt
@@ -37,7 +37,6 @@ namespace SwaggerApp
             // If salt is not specified, generate it on the fly.
             if (saltBytes is null)
             {
-
                 // Define min and max salt sizes.
                 int minSaltSize;
                 int maxSaltSize;
@@ -45,25 +44,21 @@ namespace SwaggerApp
                 maxSaltSize = 32;
 
                 // Generate a random number for the size of the salt.
-                Random random;
-                random = new Random();
-                int saltSize;
-                saltSize = random.Next(minSaltSize, maxSaltSize);
+                Random random = new Random();
+                int saltSize = random.Next(minSaltSize, maxSaltSize);
 
                 // Allocate a byte array, which will hold the salt.
                 saltBytes = new byte[saltSize];
 
                 // Initialize a random number generator.
-                RNGCryptoServiceProvider rng;
-                rng = new RNGCryptoServiceProvider();
+                RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
 
                 // Fill the salt with cryptographically strong byte values.
                 rng.GetNonZeroBytes(saltBytes);
             }
 
             // Convert plain text into a byte array.
-            byte[] plainTextBytes;
-            plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
             // Allocate array, which will hold plain text and salt.
             var plainTextWithSaltBytes = new byte[(plainTextBytes.Length + saltBytes.Length)];
@@ -125,8 +120,7 @@ namespace SwaggerApp
             }
 
             // Compute hash value of our plain text with appended salt.
-            byte[] hashBytes;
-            hashBytes = hash.ComputeHash(plainTextWithSaltBytes);
+            byte[] hashBytes = hash.ComputeHash(plainTextWithSaltBytes);
 
             // Create array which will hold hash and original salt bytes.
             var hashWithSaltBytes = new byte[(hashBytes.Length + saltBytes.Length)];
@@ -142,12 +136,10 @@ namespace SwaggerApp
                 hashWithSaltBytes[hashBytes.Length + I] = saltBytes[I];
 
             // Convert result into a base64-encoded string.
-            string hashValue;
-            hashValue = Convert.ToBase64String(hashWithSaltBytes);
+            string hashValue = Convert.ToBase64String(hashWithSaltBytes);
 
             // Return the result.
-            ComputeHashRet = hashValue;
-            return ComputeHashRet;
+            return hashValue;
         }
 
         // <summary>
@@ -178,8 +170,7 @@ namespace SwaggerApp
             try
             {
                 // Convert base64-encoded hash value into a byte array.
-                byte[] hashWithSaltBytes;
-                hashWithSaltBytes = Convert.FromBase64String(hashValue);
+                byte[] hashWithSaltBytes = Convert.FromBase64String(hashValue);
 
                 // We must know size of hash (without salt).
                 int hashSizeInBits;
@@ -244,14 +235,13 @@ namespace SwaggerApp
                     saltBytes[I] = hashWithSaltBytes[hashSizeInBytes + I];
 
                 // Compute a new hash string.
-                string expectedHashString;
-                expectedHashString = ComputeHash(plainText, hashAlgorithm, saltBytes);
+                string expectedHashString = ComputeHash(plainText, hashAlgorithm, saltBytes);
 
                 // If the computed hash matches the specified hash,
                 // the plain text value must be correct.
                 VerifyHashRet = (hashValue ?? "") == (expectedHashString ?? "");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 VerifyHashRet = false;
             }

@@ -23,7 +23,6 @@ namespace SwaggerApp.Controllers
     [Authorize]
     public class TestController : ApiController
     {
-
         ///// <summary>
         ///// Consulta todos los datos
         ///// </summary>
@@ -63,10 +62,6 @@ namespace SwaggerApp.Controllers
         //    return base.ResponseMessage(response);
         //}
 
-
-
-
-
         /// <summary>
         /// Consulta un solo dato mas parametros
         /// </summary>
@@ -78,16 +73,14 @@ namespace SwaggerApp.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id = 0, string sort = "0")
         {
-            HttpResponseMessage response;
-            response = Request.CreateResponse(HttpStatusCode.OK);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
-            string jsonR = "{\"Nombre\":\"roberto\",\"Mensaje\":\"Respuesta Ok\"}";
+            const string jsonR = "{\"Nombre\":\"roberto\",\"Mensaje\":\"Respuesta Ok\"}";
 
             response.Content = new StringContent(jsonR, Encoding.UTF8, "application/json");
             response.Headers.Location = new Uri(Request.RequestUri.ToString());
             return base.ResponseMessage(response);
         }
-
 
         /// <summary>
         /// Alta de Documento.
@@ -100,7 +93,6 @@ namespace SwaggerApp.Controllers
         [HttpPost]
         public IHttpActionResult Post([FromBody] PostData value)
         {
-
             if (value.Numero == 351)
             {
                 var resp = new PostResponse()
@@ -111,15 +103,12 @@ namespace SwaggerApp.Controllers
                 };
 
                 string jsonR = JsonConvert.SerializeObject(resp);
-                HttpResponseMessage responseG;
-                responseG = Request.CreateResponse(HttpStatusCode.SeeOther);
+                HttpResponseMessage responseG = Request.CreateResponse(HttpStatusCode.SeeOther);
                 responseG.Content = new StringContent(jsonR, Encoding.UTF8, "application/json");
                 responseG.Headers.Location = new Uri(Request.RequestUri.ToString() + "/" + value.Numero);
                 return base.ResponseMessage(responseG);
             }
-
             else
-
             {
                 var resp = new PostResponse()
                 {
@@ -130,15 +119,12 @@ namespace SwaggerApp.Controllers
 
                 string jsonR = JsonConvert.SerializeObject(resp);
 
-                HttpResponseMessage responseG;
-                responseG = Request.CreateResponse(HttpStatusCode.Created);
+                HttpResponseMessage responseG = Request.CreateResponse(HttpStatusCode.Created);
                 responseG.Content = new StringContent(jsonR, Encoding.UTF8, "application/json");
                 responseG.Headers.Location = new Uri(Request.RequestUri.ToString() + "/" + value.Numero);
                 return base.ResponseMessage(responseG);
             }
-
         }
-
 
         /// <summary>
         /// Modificacion de Documento.
@@ -160,13 +146,11 @@ namespace SwaggerApp.Controllers
 
             string jsonR = JsonConvert.SerializeObject(resp);
 
-            HttpResponseMessage responseG;
-            responseG = Request.CreateResponse(HttpStatusCode.Created);
+            HttpResponseMessage responseG = Request.CreateResponse(HttpStatusCode.Created);
             responseG.Content = new StringContent(jsonR, Encoding.UTF8, "application/json");
             responseG.Headers.Location = new Uri(Request.RequestUri.ToString() + "/" + id);
             return base.ResponseMessage(responseG);
         }
-
 
         /// <summary>
         /// Elimina Documento.
@@ -177,11 +161,9 @@ namespace SwaggerApp.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            HttpResponseMessage responseG;
-            responseG = Request.CreateResponse(HttpStatusCode.OK);
+            HttpResponseMessage responseG = Request.CreateResponse(HttpStatusCode.OK);
             return base.ResponseMessage(responseG);
         }
-
 
         /// <summary>
         /// Actualizacion de Documento.
@@ -203,12 +185,10 @@ namespace SwaggerApp.Controllers
 
             string jsonR = JsonConvert.SerializeObject(resp);
 
-            HttpResponseMessage responseG;
-            responseG = Request.CreateResponse(HttpStatusCode.Created);
+            HttpResponseMessage responseG = Request.CreateResponse(HttpStatusCode.Created);
             responseG.Content = new StringContent(jsonR, Encoding.UTF8, "application/json");
             responseG.Headers.Location = new Uri(Request.RequestUri.ToString() + "/" + id);
             return base.ResponseMessage(responseG);
         }
-
     }
 }

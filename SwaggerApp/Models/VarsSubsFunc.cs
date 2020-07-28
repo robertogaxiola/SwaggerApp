@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+using System;
 using System.Configuration;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +18,6 @@ namespace SwaggerApp
     /// </summary>
     public static class VarsSubsFunc
     {
-
         // Public mPathRoot As String = System.Web.Hosting.HostingEnvironment.MapPath("~/")
 
         public static string mPathRoot; // = HttpContext.Current.Server.MapPath("~/App_Data/")
@@ -54,9 +54,9 @@ namespace SwaggerApp
                     JWT_Paratemers_Data.JWT_ISSUER_TOKEN = "https://localhost";
                     JWT_Paratemers_Data.JWT_SECRET_KEY = "LL4v3_53Cr374_jW7_513Rr4_zOzO";
                     JWT_Paratemers_Data.JWT_SQLITE_PASSWORD = "pUn70_d3_V3n74";
-                    JWT_Paratemers_Data.JWT_SQL_SERVER = Dns.GetHostName().ToString() + @"\SQLExpress,1433";
+                    JWT_Paratemers_Data.JWT_SQL_SERVER = Dns.GetHostName() + @"\SQLExpress,1433";
                     JWT_Paratemers_Data.JWT_EXPIRE_MINUTES = 120;
-                    string strT = JsonConvert.SerializeObject(JWT_Paratemers_Data, Formatting.Indented).ToString();
+                    string strT = JsonConvert.SerializeObject(JWT_Paratemers_Data, Formatting.Indented);
                     using (var sw = new StreamWriter(mStrJWTParametersFile, false))
                     {
                         sw.Write(strT);
@@ -94,14 +94,14 @@ namespace SwaggerApp
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     mBolSwagAuth = false;
                 }
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -123,7 +123,7 @@ namespace SwaggerApp
 
                 return ipAddress.ToString().PadLeft(15);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "xxx.xxx.xxx.xxx";
             }
@@ -166,7 +166,7 @@ namespace SwaggerApp
                 objWriter.WriteLine("<<- " + dtn + " ->>  " + st);
                 objWriter.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //
             }
@@ -388,7 +388,7 @@ namespace SwaggerApp
 
                 con.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
             // If mBolAuto = False Then MsgBox("Error durante actualizacion de tablas" & vbCrLf & str_sql & vbCrLf & ex.Message)
@@ -633,9 +633,9 @@ VALUES
 
         /* TODO ERROR: Skipped RegionDirectiveTrivia */
         /// <summary>
-    /// Reads fieldName from Data Reader. If fieldName is DbNull, returns String.Empty.
-    /// </summary>
-    /// <returns>Safely returns a string. No need to check for DbNull.</returns>
+        /// Reads fieldName from Data Reader. If fieldName is DbNull, returns String.Empty.
+        /// </summary>
+        /// <returns>Safely returns a string. No need to check for DbNull.</returns>
         public static string ReadNullAsEmptyString(this IDataReader reader, string fieldName)
         {
             try
@@ -649,18 +649,17 @@ VALUES
                     return Conversions.ToString(reader[fieldName]);
                 }
 
-                return Conversions.ToString(false);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Conversions.ToString(reader[fieldName]);
             }
         }
 
         /// <summary>
-    /// Reads fieldOrdinal from Data Reader. If fieldOrdinal is DbNull, returns String.Empty.
-    /// </summary>
-    /// <returns>Safely returns a string. No need to check for DbNull.</returns>
+        /// Reads fieldOrdinal from Data Reader. If fieldOrdinal is DbNull, returns String.Empty.
+        /// </summary>
+        /// <returns>Safely returns a string. No need to check for DbNull.</returns>
         public static string ReadString(this IDataReader reader, int fieldOrdinal)
         {
             if (Information.IsDBNull(reader[fieldOrdinal]))
@@ -672,7 +671,6 @@ VALUES
                 return Conversions.ToString(reader[fieldOrdinal]);
             }
 
-            return Conversions.ToString(false);
         }
 
         public static object PrepMySQLString(string str)
