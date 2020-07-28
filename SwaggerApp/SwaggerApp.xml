@@ -4,6 +4,16 @@
         <name>SwaggerApp</name>
     </assembly>
     <members>
+        <member name="T:SwaggerApp.SwaggerConfig">
+            <summary>
+            ' '
+            </summary>
+        </member>
+        <member name="M:SwaggerApp.SwaggerConfig.Register">
+            <summary>
+            Registro Swagger
+            </summary>
+        </member>
         <member name="T:SwaggerApp.SwaggerConfig.AssignOAuth2SecurityRequirements">
             <summary>
             Filtro para authenticacion de token
@@ -82,6 +92,14 @@
             <summary>
             Respuesta de GET
             </summary>
+        </member>
+        <member name="P:SwaggerApp.GetResponse.Numero">
+            <summary>
+            numero
+            </summary>
+            <example>
+            213
+            </example>
         </member>
         <member name="P:SwaggerApp.GetResponse.Nombre">
             <summary>

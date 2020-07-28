@@ -11,17 +11,27 @@ namespace SwaggerApp
     public class GetResponse
     {
         /// <summary>
+        /// numero
+        /// </summary>
+        /// <example>
+        /// 213
+        /// </example>
+        public int Numero { get; set; }
+
+        /// <summary>
         /// nombre
         /// </summary>
         /// <example>
         /// Juan
         /// </example>
         public string Nombre { get; set; }
+
         /// <summary>
         /// Mensaje
         /// </summary>
         public string Mensaje { get; set; }
     }
+
     /// <summary>
     /// Respuesta de POST
     /// </summary>
@@ -34,6 +44,7 @@ namespace SwaggerApp
         /// 351
         /// </example>
         public int Numero { get; set; }
+
         /// <summary>
         /// Nombre
         /// </summary>
@@ -41,6 +52,7 @@ namespace SwaggerApp
         /// Jose
         /// </example>
         public string Nombre { get; set; }
+
         /// <summary>
         /// Mensaje
         /// </summary>
@@ -59,6 +71,7 @@ namespace SwaggerApp
         /// 351
         /// </example>
         public int Numero { get; set; }
+
         /// <summary>
         /// Nombre
         /// </summary>

@@ -75,10 +75,19 @@ namespace SwaggerApp.Controllers
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
-            const string jsonR = "{\"Nombre\":\"roberto\",\"Mensaje\":\"Respuesta Ok\"}";
+            //const string jsonR = "{\"id\":\" + id + "\",\"Mensaje\":\"Respuesta Ok\"}";
+
+            var resp = new GetResponse()
+            {
+                Nombre = "Roberto",
+                Numero = id,
+                Mensaje = "Ya Existe."
+            };
+
+            string jsonR = JsonConvert.SerializeObject(resp);
 
             response.Content = new StringContent(jsonR, Encoding.UTF8, "application/json");
-            response.Headers.Location = new Uri(Request.RequestUri.ToString());
+            response.Headers.Location = new Uri(Request.RequestUri.ToString() + "/" + id);
             return base.ResponseMessage(response);
         }
 

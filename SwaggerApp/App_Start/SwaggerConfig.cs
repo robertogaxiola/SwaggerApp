@@ -1,4 +1,5 @@
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -223,7 +224,7 @@ namespace SwaggerApp
 
                         c.SingleApiVersion("v1", "SwaggerApp").Description("Simple pagina para pruebas de API").TermsOfService("Uso exclusivo desarrollo sistemas sierra.").Contact(cc => cc.Name("Roberto Gaxiola V.").Url("https://www.sierra.com.mx").Email("robertogaxiola@sierra.com.mx"));
                         c.IncludeXmlComments(string.Format(@"{0}\bin\" + thisAssembly.GetName().Name + ".XML", AppDomain.CurrentDomain.BaseDirectory));
-                        c.OAuth2("oauth2").Flow("password").TokenUrl("/gettoken");
+                        c.OAuth2("oauth2").Flow("password").TokenUrl("/app/gettoken");
                         c.OperationFilter<AssignOAuth2SecurityRequirements>();
                         c.PrettyPrint();
                         c.OperationFilter<OptionalParameterOperationFilter>();
@@ -635,7 +636,6 @@ UPDATE swagger SET lastaccess = @lastaccess, lastipaddr = @ipaddr WHERE lower(us
             }
 
             // Return username.Equals("admin", StringComparison.InvariantCultureIgnoreCase) AndAlso password.Equals("123456")
-
         }
 
         private bool IsSwagger(HttpRequestMessage request)
