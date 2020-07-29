@@ -168,7 +168,6 @@ namespace SwaggerApp
             }
             catch (Exception)
             {
-                //
             }
         }
 
@@ -711,6 +710,12 @@ VALUES
         public string msg { get; set; }
     }
 
+    /// <summary>
+    /// respuesta token
+    /// </summary>
+    /// <example>
+    /// 123
+    /// </example>
     public class JSON_Token_Response
     {
         public string access_token { get; set; }

@@ -62,6 +62,8 @@ namespace SwaggerApp.Controllers
         //    return base.ResponseMessage(response);
         //}
 
+
+
         /// <summary>
         /// Consulta un solo dato mas parametros
         /// </summary>
@@ -71,6 +73,7 @@ namespace SwaggerApp.Controllers
         [Route("get/{id}")]
         [ResponseType(typeof(GetResponse))]
         [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)] // ocultar metodo UI
         public IHttpActionResult Get(int id = 0, string sort = "0")
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);

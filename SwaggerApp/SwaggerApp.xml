@@ -191,6 +191,14 @@
             </summary>
             <returns>Safely returns a string. No need to check for DbNull.</returns>
         </member>
+        <member name="T:SwaggerApp.JSON_Token_Response">
+            <summary>
+            respuesta token
+            </summary>
+            <example>
+            123
+            </example>
+        </member>
         <member name="T:SwaggerApp.SwaggerApp.Security.AuthRequest">
             <summary>
             Solicitud de token

@@ -44,7 +44,7 @@ namespace SwaggerApp
 
             //carga validacion de swagger
 
-            VarsSubsFunc.mBolSwagAuth = true;
+            VarsSubsFunc.mBolSwagAuth = false;
 
             if (VarsSubsFunc.mBolSwagAuth)
                 GlobalConfiguration.Configuration.MessageHandlers.Add(new SwaggerAccessMessageHandler2());
