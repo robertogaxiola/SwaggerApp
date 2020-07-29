@@ -23,8 +23,8 @@ namespace SwaggerApp
         public static string mPathRoot; // = HttpContext.Current.Server.MapPath("~/App_Data/")
         public static string mPathAppDataRoot; // = HttpContext.Current.Server.MapPath("~/App_Data/")
         public static JWT_Data JWT_Paratemers_Data = new JWT_Data();
-        public static string mStrLogSuffix = "_Pdv";
-        public static string mStrDocsPreFolder = @"SierraDocs\";
+        public static string mStrLogSuffix = "";
+        public static string mStrDocsPreFolder = @"\";
         public static string mPathAppDocs = Path.GetPathRoot(Environment.SystemDirectory) + mStrDocsPreFolder + "WebApi" + mStrLogSuffix + @"\";
         public static string mPathWEBAPI = Path.GetPathRoot(Environment.SystemDirectory) + mStrDocsPreFolder + @"WebApi\";
         public static string mStrJWTParametersFile = mPathWEBAPI + @"Cfg\JWT_Parameters.json";
