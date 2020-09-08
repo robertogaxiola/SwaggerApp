@@ -21,6 +21,7 @@ namespace SwaggerApp.Controllers
     [SwaggerResponse(HttpStatusCode.BadRequest, "Error en solicitud.")]
     [SwaggerResponse(HttpStatusCode.InternalServerError, "Error de aplicacion interno.")]
     [Authorize]
+
     public class TestController : ApiController
     {
         ///// <summary>
@@ -70,10 +71,12 @@ namespace SwaggerApp.Controllers
         /// <response code="200" cref="GetResponse">Operacion exitosa.</response>
         /// <param name="id">Numero de documento</param>
         /// <param name="sort">1 = Ordenar por nombre (opcional)</param>
+        /// <![CDATA[
+        ///         [ApiExplorerSettings(IgnoreApi = true)] // ocultar metodo UI
+        /// ]]>
         [Route("get/{id}")]
         [ResponseType(typeof(GetResponse))]
         [HttpGet]
-        [ApiExplorerSettings(IgnoreApi = true)] // ocultar metodo UI
         public IHttpActionResult Get(int id = 0, string sort = "0")
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);

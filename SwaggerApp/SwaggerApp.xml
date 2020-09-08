@@ -56,6 +56,9 @@
             <response code="200" cref="T:SwaggerApp.GetResponse">Operacion exitosa.</response>
             <param name="id">Numero de documento</param>
             <param name="sort">1 = Ordenar por nombre (opcional)</param>
+            <![CDATA[
+                    [ApiExplorerSettings(IgnoreApi = true)] // ocultar metodo UI
+            ]]>
         </member>
         <member name="M:SwaggerApp.Controllers.TestController.Post(SwaggerApp.PostData)">
             <summary>

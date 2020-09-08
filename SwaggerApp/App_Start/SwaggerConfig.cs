@@ -228,6 +228,7 @@ namespace SwaggerApp
                         c.OperationFilter<AssignOAuth2SecurityRequirements>();
                         c.PrettyPrint();
                         c.OperationFilter<OptionalParameterOperationFilter>();
+                        c.DocumentFilter<HideInDocsFilter>();
                     })
                 .EnableSwaggerUi(c =>
                     {
@@ -343,6 +344,12 @@ namespace SwaggerApp
                         c.DocumentTitle("My Swagger UI");
                         c.EnableOAuth2Support("clientID", VarsSubsFunc.mStrSecretKey, "Swagger UI");
                     });
+
+
+
+
+
+
         }
 
         /// <summary>
@@ -460,6 +467,9 @@ namespace SwaggerApp
                 return string.Empty;
             }
         }
+
+
+
 
         ///// <summary>
         ///// Metodos Originales
@@ -650,6 +660,23 @@ UPDATE swagger SET lastaccess = @lastaccess, lastipaddr = @ipaddr WHERE lower(us
             // str2 = str.Split(New String() {"/swagger"}, StringSplitOptions.None)
 
             return request.RequestUri.PathAndQuery.IndexOf("/swagger", StringComparison.CurrentCultureIgnoreCase) >= 0;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+    public class HideInDocsAttribute : Attribute
+    {
+    }
+        public class HideInDocsFilter : IDocumentFilter
+    {
+        public void Apply(SwaggerDocument swaggerDoc, SchemaRegistry schemaRegistry, IApiExplorer apiExplorer)
+        {
+            foreach (var apiDescription in apiExplorer.ApiDescriptions)
+            {
+                if (!apiDescription.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<HideInDocsAttribute>().Any() && !apiDescription.ActionDescriptor.GetCustomAttributes<HideInDocsAttribute>().Any()) continue;
+                var route = "/" + apiDescription.Route.RouteTemplate.TrimEnd('/');
+                swaggerDoc.paths.Remove(route);
+            }
         }
     }
 }
