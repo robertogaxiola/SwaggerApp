@@ -146,9 +146,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SimpleHash.cs" />
+    <Compile Include="Security\SimpleHash.cs" />
     <Compile Include="Models\TestModels.cs" />
-    <Compile Include="Models\VarsSubsFunc.cs" />
+    <Compile Include="Security\VarsSubsFunc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AuthorizeAttribute.cs" />
     <Compile Include="Security\EnableHTTPS.cs" />
@@ -158,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\WSTestSvr IISProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

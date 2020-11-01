@@ -56,6 +56,9 @@
             <response code="200" cref="T:SwaggerApp.GetResponse">Operacion exitosa.</response>
             <param name="id">Numero de documento</param>
             <param name="sort">1 = Ordenar por nombre (opcional)</param>
+            <![CDATA[
+                    [ApiExplorerSettings(IgnoreApi = true)] // ocultar metodo UI
+            ]]>
         </member>
         <member name="M:SwaggerApp.Controllers.TestController.Post(SwaggerApp.PostData)">
             <summary>
@@ -190,6 +193,14 @@
             Reads fieldOrdinal from Data Reader. If fieldOrdinal is DbNull, returns String.Empty.
             </summary>
             <returns>Safely returns a string. No need to check for DbNull.</returns>
+        </member>
+        <member name="T:SwaggerApp.JSON_Token_Response">
+            <summary>
+            respuesta token
+            </summary>
+            <example>
+            123
+            </example>
         </member>
         <member name="T:SwaggerApp.SwaggerApp.Security.AuthRequest">
             <summary>
