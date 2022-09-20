@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.VisualBasic;
@@ -21,7 +22,7 @@ namespace SwaggerApp.Controllers
     [SwaggerResponse(HttpStatusCode.BadRequest, "Error en solicitud.")]
     [SwaggerResponse(HttpStatusCode.InternalServerError, "Error de aplicacion interno.")]
     [Authorize]
-
+    //[Produces("application/json")]
     public class TestController : ApiController
     {
         ///// <summary>
@@ -90,11 +91,23 @@ namespace SwaggerApp.Controllers
                 Mensaje = "Ya Existe."
             };
 
+              Task.Run(() => FireAway());
+
+
+           Task.Factory.StartNew(() => FireAway());
+
             string jsonR = JsonConvert.SerializeObject(resp);
 
             response.Content = new StringContent(jsonR, Encoding.UTF8, "application/json");
             response.Headers.Location = new Uri(Request.RequestUri.ToString() + "/" + id);
             return base.ResponseMessage(response);
+        }
+
+
+        static void FireAway()
+        {
+            System.Threading.Thread.Sleep(5000);
+            Console.WriteLine("5 seconds later");
         }
 
         /// <summary>

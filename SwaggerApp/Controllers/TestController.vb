@@ -2,6 +2,7 @@
 Imports System.Net
 Imports System.Net.Http
 Imports System.Text
+Imports System.Threading.Tasks
 Imports System.Web.Http
 Imports Newtonsoft.Json
 Imports Swagger.Net.Annotations
@@ -56,12 +57,17 @@ Namespace SwaggerApp.Controllers
         '    return base.ResponseMessage(response);
         '}
 
+
+
         ''' <summary>
         ''' Consulta un solo dato mas parametros
         ''' </summary>
         ''' <responsecode="200"cref="GetResponse">Operacion exitosa.</response>
         ''' <paramname="id">Numero de documento</param>
         ''' <paramname="sort">1 = Ordenar por nombre (opcional)</param>
+        ''' <![CDATA[
+        '''         [ApiExplorerSettings(IgnoreApi = true)] // ocultar metodo UI
+        ''' ]]>
         <Route("get/{id}")>
         <Description.ResponseTypeAttribute(GetType(SwaggerApp.GetResponse))>
         <HttpGet>
@@ -75,11 +81,18 @@ Namespace SwaggerApp.Controllers
                 .Numero = id,
                 .Mensaje = "Ya Existe."
             }
+            Call Task.Run(Function() FireAway())
+            Call Task.Factory.StartNew(Function() FireAway())
             Dim jsonR = JsonConvert.SerializeObject(resp)
             response.Content = New StringContent(jsonR, Encoding.UTF8, "application/json")
             response.Headers.Location = New Uri(Request.RequestUri.ToString() & "/" & id)
             Return MyBase.ResponseMessage(response)
         End Function
+
+        Private Shared Sub FireAway()
+            Threading.Thread.Sleep(5000)
+            Console.WriteLine("5 seconds later")
+        End Sub
 
         ''' <summary>
         ''' Alta de Documento.
